@@ -4,6 +4,8 @@ FROM amazonlinux:2
 # Update all installed packages to thier latest versions
 RUN yum update -y 
 
+RUN yum install -y file
+
 # Install the unzip package, which we will use it to extract the web files from the zip folder
 RUN yum install unzip -y
 
@@ -12,6 +14,8 @@ RUN yum install -y wget
 
 # Install Apache
 RUN yum install -y httpd
+
+RUN file /usr/sbin/httpd
 
 # Install PHP and various extensions
 RUN amazon-linux-extras enable php7.4 && \
