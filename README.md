@@ -109,6 +109,89 @@ Use **AWS Secrets Manager** to securely store and manage sensitive information, 
 
 ---
 
+# Professional README: Troubleshooting Amazon EKS Issues
+
+## 🔧 Troubleshooting Guide
+
+### 1️⃣ Unauthorized Error When Creating a Namespace
+
+**Issue:**
+When running the following command:
+```sh
+kubectl create namespace your-namespace
+```
+and receiving an **unauthorized error**, ensure that the user attempting to access the cluster is the **same user** who created the EKS cluster.
+
+**Solution:**
+- Verify your AWS credentials using:
+  ```sh
+  aws sts get-caller-identity
+  ```
+- If you are using IAM roles, confirm that the correct IAM role has permissions to manage the cluster.
+- Ensure your user is added to the `aws-auth` ConfigMap with the necessary permissions:
+  ```sh
+  kubectl get configmap aws-auth -n kube-system
+  ```
+  Update the ConfigMap if needed.
+
+---
+
+### 2️⃣ CPU Architecture Mismatch Between Docker Image and EKS Worker Nodes
+
+**Issue:**
+The CPU architecture of your **Docker image** should match the architecture of your **EKS worker nodes**.
+- **Windows OS** builds use: `linux/amd64`
+- **Mac (M1/M2) OS** builds use: `linux/arm64`
+
+If you build a Docker image on an M1/M2 Mac and your worker nodes are running `linux/amd64`, your pod will **fail to deploy**.
+
+**Solution:**
+To ensure compatibility, specify the correct platform when building your Docker image:
+```sh
+docker build --platform linux/amd64 -t your-image-name .
+```
+
+**Architecture Mapping:**
+- `X86_64` → Windows OS: `linux/amd64`
+- `ARM64`  → Mac OS (M1/M2): `linux/arm64`
+
+To check the architecture of your worker nodes, run:
+```sh
+kubectl get nodes -o wide
+```
+
+---
+
+### 3️⃣ Pods Not Visible on EKS Worker Nodes
+
+**Issue:**
+After deploying pods to worker nodes, you check the node and **do not see the pod running** on the management console.
+
+**Possible Cause:**
+The pod might be **on the second page** of results. EKS paginates output when listing pods.
+
+**Solution:**
+- Use the following command to view all pods across all namespaces:
+  ```sh
+  kubectl get pods --all-namespaces
+  ```
+- If necessary, paginate through the list using:
+  ```sh
+  kubectl get pods --all-namespaces --limit=50
+  ```
+- Check pod status with:
+  ```sh
+  kubectl describe pod <pod-name>
+  ```
+  to diagnose potential scheduling issues.
+
+---
+
+By following these troubleshooting steps, you can resolve common issues when working with Amazon EKS. 🚀
+
+
+---
+
 ## Conclusion
 
 Your dynamic application is now hosted on **AWS EKS**, complete with a custom domain, SSL encryption, and secret management. 🎉
