@@ -1,7 +1,3 @@
-Here’s a reformatted version of your README file to make it more readable and structured:
-
----
-
 # Hosting a Dynamic Application with Kubernetes on AWS EKS
 
 ## Prerequisites
@@ -116,7 +112,3 @@ Use **AWS Secrets Manager** to securely store and manage sensitive information, 
 ## Conclusion
 
 Your dynamic application is now hosted on **AWS EKS**, complete with a custom domain, SSL encryption, and secret management. 🎉
-
----
-
-This format breaks the instructions down into clear, actionable steps with headings that make it easier to follow and locate relevant sections. Let me know if you need further improvements!
