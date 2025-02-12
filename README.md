@@ -109,8 +109,6 @@ Use **AWS Secrets Manager** to securely store and manage sensitive information, 
 
 ---
 
-# Professional README: Troubleshooting Amazon EKS Issues
-
 ## 🔧 Troubleshooting Guide
 
 ### 1️⃣ Unauthorized Error When Creating a Namespace
