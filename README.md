@@ -74,9 +74,9 @@ Create an EKS cluster and worker nodes using AWS Management Console or `eksctl`.
 
 ---
 
-## 4. Create Kubernetes YAML Files and Deploy to EKS
+## 4. Create Kubernetes YAML Files and deploy components to EKS
 
-You can find the YAML files for Kubernetes deployment and detailed instructions on deploying to EKS [here](https://github.com/li-zhang1/eks-projects).
+You can find the YAML files for Kubernetes deployment and detailed instructions on deploying to EKS [here](https://github.com/li-zhang1/eks-yaml-deployment-files-projects).
 
 ---
 
